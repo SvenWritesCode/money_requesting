@@ -1,0 +1,41 @@
+{
+  "name": "payme",
+  "description": "A payment-splitting and giving app",
+  "version": "0.0.1",
+  "license": "MIT",
+  "homepage": "https://github.com/snowpackjs/snowpack/tree/master/create-snowpack-app/app-template-svelte#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snowpackjs/snowpack.git",
+    "directory": "create-snowpack-app/app-template-svelte"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build",
+    "test": "web-test-runner \"src/**/*.test.js\""
+  },
+  "dependencies": {
+    "@snowpack/app-scripts-svelte": "^1.9.2",
+    "@tailwindcss/ui": "^0.7.2",
+    "autoprefixer": "^10.0.2",
+    "firebase": "^8.1.1",
+    "postcss": "^8.1.10",
+    "postcss-nesting": "^7.0.1",
+    "svelte": "^3.24.0",
+    "sveltefire": "^0.1.5",
+    "tailwindcss": "^2.0.1"
+  },
+  "devDependencies": {
+    "@snowpack/plugin-dotenv": "^2.0.4",
+    "@snowpack/plugin-svelte": "^3.3.0",
+    "@snowpack/web-test-runner-plugin": "^0.1.4",
+    "@testing-library/svelte": "^3.0.0",
+    "@web/test-runner": "^0.9.7",
+    "chai": "^4.2.0",
+    "snowpack": "^2.17.1"
+  },
+  "gitHead": "a01616bb0787d56cd782f94cecf2daa12c7594e4"
+}
