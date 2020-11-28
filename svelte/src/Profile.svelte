@@ -1,0 +1,48 @@
+<script>
+  import { instance } from "./stores.js";
+  import { User, Doc } from "sveltefire";
+  import Avatar from "./Avatar.svelte";
+
+  const providers = [
+    { name: "name" },
+    {
+      name: "venmo",
+      src: "https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg",
+    },
+  ];
+  function updateProvider(name, ref) {
+    $instance.collection("users").doc();
+  }
+</script>
+
+<style>
+  img {
+    height: 24px;
+  }
+  div {
+    display: flex;
+  }
+</style>
+
+<User let:user>
+  <div>
+    <Avatar name={user.uid} />
+    <Doc path={`/users/${user.uid}`} let:data let:ref>
+      {#each providers as { name, src }}
+        {#if src}<img alt={name} {src} />{/if}
+
+        <label for={name}>{name}</label>
+        <input
+          id={name}
+          value={data?.[name]}
+          on:change={({ target: { value } }) => {
+            $instance
+              .collection('users')
+              .doc(user.uid)
+              .update({ [name]: value });
+            ref.update({ [name]: value });
+          }} />
+      {/each}
+    </Doc>
+  </div>
+</User>

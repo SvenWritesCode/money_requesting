@@ -8,7 +8,7 @@
   let button;
   onMount(async () => {
     if (button) {
-      clip = new Clipboard(button, { text: () => text });
+      new Clipboard(button, { text: () => text });
     }
   });
 

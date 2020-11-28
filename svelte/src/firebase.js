@@ -20,4 +20,22 @@ export { firebase };
 export const db = firebase.firestore();
 export const auth = firebase.auth();
 
-auth.signInAnonymously();
+import { instance } from "./stores";
+const queryId = window.location.search.split("i=")?.[1];
+let instanceRef = db.doc(`instance/${queryId}`);
+if (!instanceRef) {
+  instanceRef = db.collection("instance").doc();
+}
+const usersRef = instanceRef.collection("users");
+instance.set(instanceRef);
+auth.signInAnonymously().then(({ user: { uid } }) => {
+  db.doc(`users/${uid}`)
+    .set({}, { merge: true })
+    .then(() => {
+      db.doc(`users/${uid}`)
+        .get()
+        .then((user) => {
+          usersRef.doc(uid).set({ ...user.data() });
+        });
+    });
+});

@@ -1,14 +1,13 @@
 <script>
-  import { User } from "sveltefire";
+  import { instance } from "./stores.js";
+  import { Collection } from "sveltefire";
   import Avatar from "./Avatar.svelte";
+</script>
 
-  const providers = [
-{name: 'Venmo', src: 'https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg'}
-  ];
-  </script>
-
-<User let:user>
-  <Avatar name={user.uid} />
-
-</User>
-
+{#if $instance}
+  <Collection path={`/instance/${$instance.id}/users`} let:data>
+    {#each data as user}
+      <Avatar name={user?.name || user?.venmo} />
+    {/each}
+  </Collection>
+{/if}

@@ -7,5 +7,5 @@
   }
 </style>
 <span>
-  {name[0] || "A"}
+  {name}
 </span>
