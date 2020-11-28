@@ -2,14 +2,20 @@
   import { FirebaseApp, User, Doc, Collection } from "sveltefire";
   import { firebase } from "./firebase";
   import ShareUrl from "./ShareUrl.svelte";
-  import Online from "./Online.svelte";
+  import AvatarSelect from "./AvatarSelect.svelte";
   import Profile from "./Profile.svelte";
-  import ItemGrid from "./ItemGrid.svelte";
+  import Provisions from "./Provisions.svelte";
 </script>
-
+<style>
+</style>
 <FirebaseApp {firebase}>
+  <div>
   <Profile />
+  <AvatarSelect />
   <ShareUrl />
-  <Online />
-  <ItemGrid />
+
+  <div>
+  <Provisions />
+  </div>
+  </div>
 </FirebaseApp>

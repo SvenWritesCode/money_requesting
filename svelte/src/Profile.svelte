@@ -1,5 +1,5 @@
 <script>
-  import { instance } from "./stores.js";
+  import { voyage } from "./stores.js";
   import { User, Doc } from "sveltefire";
   import Avatar from "./Avatar.svelte";
 
@@ -9,9 +9,14 @@
       name: "venmo",
       src: "https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg",
     },
+
+    {
+      name: "cashapp",
+      src: "https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg",
+    },
   ];
   function updateProvider(name, ref) {
-    $instance.collection("users").doc();
+    $voyage.collection("crewmate").doc();
   }
 </script>
 
@@ -26,8 +31,7 @@
 
 <User let:user>
   <div>
-    <Avatar name={user.uid} />
-    <Doc path={`/users/${user.uid}`} let:data let:ref>
+    <Doc path={`/mariner/${user.uid}`} let:data let:ref>
       {#each providers as { name, src }}
         {#if src}<img alt={name} {src} />{/if}
 
@@ -36,8 +40,8 @@
           id={name}
           value={data?.[name]}
           on:change={({ target: { value } }) => {
-            $instance
-              .collection('users')
+            $voyage
+              .collection('crewmate')
               .doc(user.uid)
               .update({ [name]: value });
             ref.update({ [name]: value });

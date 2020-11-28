@@ -20,22 +20,27 @@ export { firebase };
 export const db = firebase.firestore();
 export const auth = firebase.auth();
 
-import { instance } from "./stores";
+import { voyage } from "./stores";
 const queryId = window.location.search.split("i=")?.[1];
-let instanceRef = db.doc(`instance/${queryId}`);
-if (!instanceRef) {
-  instanceRef = db.collection("instance").doc();
+let voyageRef;
+if (queryId) {
+  voyageRef = db.doc(`/voyage/${queryId}`);
+} else {
+  voyageRef = db.collection("voyage").doc();
 }
-const usersRef = instanceRef.collection("users");
-instance.set(instanceRef);
+voyage.set(voyageRef);
+const crewmateRef = voyageRef.collection("crewmate");
 auth.signInAnonymously().then(({ user: { uid } }) => {
-  db.doc(`users/${uid}`)
-    .set({}, { merge: true })
+  db.doc(`mariner/${uid}`)
+    .set(
+      { voyages: firebase.firestore.FieldValue.arrayUnion(voyageRef.id) },
+      { merge: true }
+    )
     .then(() => {
-      db.doc(`users/${uid}`)
+      db.doc(`mariner/${uid}`)
         .get()
         .then((user) => {
-          usersRef.doc(uid).set({ ...user.data() });
+          crewmateRef.doc(uid).set({ ...user.data(), uid });
         });
     });
 });

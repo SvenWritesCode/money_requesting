@@ -14,7 +14,7 @@
 
   let page = 0;
   const story = [
-    "Copy Text",
+    "Copy Link  ",
     "You're amazing!",
     "Nice work.",
     "Awesome.",
