@@ -37,7 +37,7 @@ auth.signInAnonymously().then(({ user: { uid } }) => {
       { merge: true }
     )
     .then(() => {
-      voyageRef.update({date: new Date()})
+      voyageRef.set({ date: new Date() }, { merge: true });
       db.doc(`mariner/${uid}`)
         .get()
         .then((mariner) => {
