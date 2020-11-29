@@ -9,5 +9,8 @@
 <label for="description">Description:<input
     id="description"
     bind:value={description} /></label>
-<label for="price">Price:<input id="price" bind:value={price} /></label>
+<label for="price">Price:<input
+    type="number"
+    id="price"
+    bind:value={price} /></label>
 <button on:click={handleSubmit}>Submit</button>

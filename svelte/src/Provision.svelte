@@ -10,6 +10,10 @@
     dispatch("select", { remove });
   };
 
+  const handleRemove = () => {
+    dispatch("remove");
+  };
+
   const { description, price, crewmate } = provision;
 </script>
 
@@ -27,5 +31,6 @@
         {crewmate && crewmate.includes($selected.name) ? "didn't get" : 'got'}
         this</button>
     {/if}
+    <button on:click={() => handleRemove()}> x</button>
   </div>
 </User>

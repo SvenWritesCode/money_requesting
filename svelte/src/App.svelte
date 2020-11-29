@@ -5,6 +5,7 @@
   import AvatarSelect from "./AvatarSelect.svelte";
   import Profile from "./Profile.svelte";
   import Provisions from "./Provisions.svelte";
+  import Undo from './Undo.svelte';
 </script>
 <style>
 </style>
@@ -18,4 +19,5 @@
   <Provisions />
   </div>
   </div>
+  <Undo />
 </FirebaseApp>
