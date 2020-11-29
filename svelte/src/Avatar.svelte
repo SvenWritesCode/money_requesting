@@ -1,6 +1,6 @@
 <script>
   export let selected;
-  export let user = { name: "Anon" };
+  export let crewmate = { name: "Anon" };
 </script>
 
 <style>
@@ -12,4 +12,4 @@
   }
 </style>
 
-<span class:selected> {user.name} </span>
+<span class:selected> {crewmate.name} </span>

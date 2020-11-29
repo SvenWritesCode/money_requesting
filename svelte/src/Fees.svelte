@@ -1,16 +1,16 @@
 <script>
-  export let tax, tip, fees;
+  import { Doc } from "sveltefire";
+  import { voyage } from "./stores.js";
 </script>
 
-<label for="tax">
-  <input id="tax" bind:value={tax} />
-  tax
-</label>
-<label for="tip">
-  <input id="tip" bind:value={tip} />
-  tip
-</label>
-<label for="fees">
-  <input id="fees" bind:value={fees} />
-  fees
-</label>
+<Doc path={$voyage} let:data let:ref>
+  {#each ['tip', 'tax', 'fees'] as name}
+    <label for={name}>{name}</label>
+    <input
+      id={name}
+      value={data?.[name]}
+      on:change={({ target: { value } }) => {
+        ref.update({ [name]: value });
+      }} />
+  {/each}
+</Doc>

@@ -37,10 +37,11 @@ auth.signInAnonymously().then(({ user: { uid } }) => {
       { merge: true }
     )
     .then(() => {
+      voyageRef.update({date: new Date()})
       db.doc(`mariner/${uid}`)
         .get()
-        .then((user) => {
-          crewmateRef.doc(uid).set({ ...user.data(), uid });
+        .then((mariner) => {
+          crewmateRef.doc(uid).set({ ...mariner.data(), uid });
         });
     });
 });

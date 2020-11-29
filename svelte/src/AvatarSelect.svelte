@@ -1,6 +1,6 @@
 <script>
-  import { voyage, selected } from "./stores.js";
-  import { Collection } from "sveltefire";
+  import { voyage, selected, undo } from "./stores.js";
+  import { Collection, User } from "sveltefire";
   import Avatar from "./Avatar.svelte";
 </script>
 
@@ -10,15 +10,25 @@
     width: 0 !important;
     height: 0 !important;
   }
+  span {
+    cursor: pointer;
+  }
 </style>
 
-{#if $voyage}
-  <Collection path={`/voyage/${$voyage.id}/crewmate`} let:data>
-    {#each data as user}
+<User let:user>
+  <Collection path={`/voyage/${$voyage.id}/crewmate`} let:data let:ref>
+    {#each data as crewmate}
+      {#if user.uid !== crewmate.uid}
+        <span
+          on:click={(e) => {
+            crewmate.ref.delete();
+            $undo = { action: () => ref.add(crewmate), text: `Hoist ${crewmate.name} back aboard?` };
+          }}>x</span>
+      {/if}
       <label>
-        <Avatar {user} selected={user == $selected} />
-        <input type="radio" value={user} bind:group={$selected} />
+        <Avatar {crewmate} selected={crewmate == $selected} />
+        <input type="radio" value={crewmate} bind:group={$selected} />
       </label>
     {/each}
   </Collection>
-{/if}
+</User>

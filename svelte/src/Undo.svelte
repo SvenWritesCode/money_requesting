@@ -7,7 +7,7 @@
   <button
     transition:fade
     on:click={() => {
-      $undo();
+      $undo.action();
       $undo = null;
-    }}>Undo?</button>
+    }}>{$undo.text}</button>
 {/if}

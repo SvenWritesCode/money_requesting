@@ -1,11 +1,10 @@
 <script>
   import { firebase } from "./firebase.js";
   import { voyage, selected, undo } from "./stores.js";
-  import { Collection } from "sveltefire";
+  import { Doc, Collection } from "sveltefire";
   import Provision from "./Provision.svelte";
   import ProvisionInput from "./ProvisionInput.svelte";
   import Fees from "./Fees.svelte";
-  let tax, tip, fees;
 
   const handleSelect = ({ id }, provisionRef, remove) => {
     provisionRef.doc(id).update({
@@ -15,10 +14,13 @@
     });
   };
 
-  const handleRemove = ({ id }, provisionRef) => {
+  const handleRemove = ({ id, description, price }, provisionRef) => {
     const docRef = provisionRef.doc(id);
     docRef.get().then((doc) => {
-      $undo = () => provisionRef.add(doc.data());
+      $undo = {
+        action: () => provisionRef.add(doc.data()),
+        text: `Fetch back the $${price} ${description} provision?`,
+      };
       docRef.delete();
     });
   };
@@ -42,27 +44,31 @@
   };
 </script>
 
-<Collection
-  path={`/voyage/${$voyage.id}/provision`}
-  let:data={provisions}
-  let:ref>
-  {#each provisions as provision (provision)}
-    <Provision
-      {provision}
-      on:select={({ detail: { remove } }) => handleSelect(provision, ref, remove)}
-      on:remove={() => handleRemove(provision, ref)} />
-  {/each}
-  <div>
-    <ProvisionInput {ref} />
-    <Fees bind:tax bind:tip bind:fees />
-  </div>
-  <div>
-    People
-    {#each Object.entries(sumPeople(provisions)) as [name, total]}
-      <div>{name}: ${total}</div>
+<Doc path={$voyage} let:data={voyageData}>
+  <Collection
+    path={`/voyage/${$voyage.id}/provision`}
+    let:data={provisionsData}
+    let:ref>
+    {#each provisionsData as provision (provision)}
+      <Provision
+        {provision}
+        on:select={({ detail: { remove } }) => handleSelect(provision, ref, remove)}
+        on:remove={() => handleRemove(provision, ref)} />
     {/each}
-  </div>
-  <div>
-    Total ${sumProvisions(provisions) + parseInt(tax) + parseInt(tip) + parseInt(fees)}
-  </div>
-</Collection>
+    <div>
+      <ProvisionInput {ref} />
+      <div>
+        <Fees />
+      </div>
+    </div>
+    <div>
+      People
+      {#each Object.entries(sumPeople(provisionsData)) as [name, total]}
+        <div>{name}: ${total}</div>
+      {/each}
+    </div>
+    <div>
+      Total ${sumProvisions(provisionsData) + parseInt(voyageData.tip) + parseInt(voyageData.tax) + parseInt(voyageData.fees)}
+    </div>
+  </Collection>
+</Doc>
