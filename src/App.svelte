@@ -9,13 +9,13 @@
 </script>
 
 <FirebaseApp {firebase}>
-  <div>
-    <Profile />
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <AvatarSelect />
     <ShareUrl />
     <div>
       <Provisions />
     </div>
+    <Undo />
+    <Profile />
   </div>
-  <Undo />
 </FirebaseApp>

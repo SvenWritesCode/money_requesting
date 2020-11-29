@@ -2,7 +2,6 @@
   import { fade } from "svelte/transition";
   import { onMount } from "svelte";
 
-  import Clipboard from "clipboard";
   export let text;
 
   let button;

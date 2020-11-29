@@ -2,6 +2,13 @@
   import { voyage, selected, undo } from "./stores.js";
   import { Collection, User } from "sveltefire";
   import Avatar from "./Avatar.svelte";
+  const handleRemove = (crewmate, ref) => {
+    crewmate.ref.delete();
+    $undo = {
+      action: () => ref.add(crewmate),
+      text: `Hoist ${crewmate.name} back aboard?`,
+    };
+  };
 </script>
 
 <style>
@@ -10,7 +17,7 @@
     width: 0 !important;
     height: 0 !important;
   }
-  span {
+  label {
     cursor: pointer;
   }
 </style>
@@ -18,15 +25,12 @@
 <User let:user>
   <Collection path={`/voyage/${$voyage.id}/crewmate`} let:data let:ref>
     {#each data as crewmate}
-      {#if user.uid !== crewmate.uid}
-        <span
-          on:click={(e) => {
-            crewmate.ref.delete();
-            $undo = { action: () => ref.add(crewmate), text: `Hoist ${crewmate.name} back aboard?` };
-          }}>x</span>
-      {/if}
       <label>
-        <Avatar {crewmate} selected={crewmate == $selected} />
+        <Avatar
+          isRemovable={user.uid != crewmate.uid}
+          {crewmate}
+          selected={crewmate == $selected}
+          on:remove={() => handleRemove(crewmate, ref)} />
         <input type="radio" value={crewmate} bind:group={$selected} />
       </label>
     {/each}

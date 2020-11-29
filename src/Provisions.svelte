@@ -7,6 +7,7 @@
   import Fees from "./Fees.svelte";
 
   const handleSelect = ({ id }, provisionRef, remove) => {
+    if (!$selected?.name) return;
     provisionRef.doc(id).update({
       crewmate: remove
         ? firebase.firestore.FieldValue.arrayRemove($selected.name)
@@ -49,12 +50,14 @@
     path={`/voyage/${$voyage.id}/provision`}
     let:data={provisionsData}
     let:ref>
-    {#each provisionsData as provision (provision)}
-      <Provision
-        {provision}
-        on:select={({ detail: { remove } }) => handleSelect(provision, ref, remove)}
-        on:remove={() => handleRemove(provision, ref)} />
-    {/each}
+    <div class="grid grid-cols-1 gap-2 xs:grid-cols-2 sm:grid-cols-4 lg:grid-cols-6">
+      {#each provisionsData as provision (provision)}
+        <Provision
+          {provision}
+          on:select={({ detail: { remove } }) => handleSelect(provision, ref, remove)}
+          on:remove={() => handleRemove(provision, ref)} />
+      {/each}
+    </div>
     <div>
       <ProvisionInput {ref} />
       <div>
