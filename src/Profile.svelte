@@ -1,7 +1,7 @@
 <script>
+  import BoatSelect from "./BoatSelect.svelte";
   import { voyage } from "./stores.js";
   import { User, Doc } from "sveltefire";
-  import Avatar from "./Avatar.svelte";
 
   const providers = [
     { name: "name" },
@@ -18,12 +18,13 @@
   function updateProvider(name, ref) {
     $voyage.collection("crewmate").doc();
   }
+  const handleSelect = (boat, ref, user) => {
+    $voyage.collection(`crewmate`).doc(user.uid).update({ boat }, { merge: true });
+    ref.update({ boat }, { merge: true });
+  };
 </script>
 
 <style>
-  img {
-    height: 24px;
-  }
   div {
     display: flex;
   }
@@ -32,9 +33,12 @@
 <User let:user>
   <div>
     <Doc path={`/mariner/${user.uid}`} let:data let:ref>
-      {#each providers as { name, src }}
-        {#if src}<img alt={name} {src} />{/if}
-
+      {#if data.boat}
+        <BoatSelect
+          boat={data.boat}
+          on:select={({ detail: { boat } }) => handleSelect(boat, ref, user)} />
+      {/if}
+      {#each providers as { name }}
         <label for={name}>{name}</label>
         <input
           id={name}

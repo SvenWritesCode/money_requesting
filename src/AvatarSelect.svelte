@@ -6,7 +6,7 @@
     crewmate.ref.delete();
     $undo = {
       action: () => ref.add(crewmate),
-      text: `Hoist ${crewmate.name} back aboard?`,
+      text: `Hoist ${crewmate?.name} back aboard?`,
     };
   };
 </script>

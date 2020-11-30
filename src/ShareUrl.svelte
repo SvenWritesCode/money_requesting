@@ -184,6 +184,8 @@
         width="63.609"
         height="15.642"
         style="fill: rgb(255, 255, 255);" />
-      <rect x="408.244" y="324.301" width="63.609" height="15.642" /></svg>
+      <rect x="408.244" y="324.301" width="63.609" height="15.642" />
+    
+    </svg>
   </div>
 {/if}

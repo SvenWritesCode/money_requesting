@@ -21,9 +21,9 @@
   <svg
     class="h-32 w-32 absolute"
     enable-background="new 0 0 512 512"
-    height="512"
+    height="100%"
     viewBox="0 0 512 512"
-    width="512"
+    width="100%"
     xmlns="http://www.w3.org/2000/svg"><path
       d="m41.238 98.473h143.174v315.055h-143.174z"
       fill="#e1b89a" />
