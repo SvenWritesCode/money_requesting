@@ -1,25 +1,15 @@
 <script>
-  import BoatSelect from "./BoatSelect.svelte";
+  import Providers from "./Providers.svelte";
   import { voyage } from "./stores.js";
   import { User, Doc } from "sveltefire";
+  import Tag from "./svg/Tag.svelte";
+  import Ship from "./svg/Ship.svelte";
 
-  const providers = [
-    { name: "name" },
-    {
-      name: "venmo",
-      src: "https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg",
-    },
-
-    {
-      name: "cashapp",
-      src: "https://cdn1.venmo.com/marketing/images/branding/venmo-icon.svg",
-    },
-  ];
-  function updateProvider(name, ref) {
-    $voyage.collection("crewmate").doc();
-  }
   const handleSelect = (boat, ref, user) => {
-    $voyage.collection(`crewmate`).doc(user.uid).update({ boat }, { merge: true });
+    $voyage
+      .collection(`crewmate`)
+      .doc(user.uid)
+      .update({ boat }, { merge: true });
     ref.update({ boat }, { merge: true });
   };
 </script>
@@ -28,29 +18,38 @@
   div {
     display: flex;
   }
+  .name {
+    width: 87%;
+    position: absolute;
+    left: 6%;
+    text-align:center;
+    top: 63%;
+  }
+
+  .providers {
+    position: absolute;
+    bottom: 3%;
+    height: 21%;
+    width: 67%;
+    left: 26%;
+  }
 </style>
 
 <User let:user>
   <div>
     <Doc path={`/mariner/${user.uid}`} let:data let:ref>
-      {#if data.boat}
-        <BoatSelect
-          boat={data.boat}
-          on:select={({ detail: { boat } }) => handleSelect(boat, ref, user)} />
-      {/if}
-      {#each providers as { name }}
-        <label for={name}>{name}</label>
-        <input
-          id={name}
-          value={data?.[name]}
-          on:change={({ target: { value } }) => {
-            $voyage
-              .collection('crewmate')
-              .doc(user.uid)
-              .update({ [name]: value });
-            ref.update({ [name]: value });
-          }} />
-      {/each}
+      <div class="relative h-64">
+        <Tag text="">
+          <Ship boat={data.boat} />
+        </Tag>
+        <div class="providers">
+          <Providers />
+        </div>
+        <span class="name outline-none" contenteditable>Kyle Trusler</span>
+        <div class="providers">
+          <Providers />
+        </div>
+      </div>
     </Doc>
   </div>
 </User>

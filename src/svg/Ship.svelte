@@ -15,7 +15,7 @@
     Submarine: Submarine,
     Cargoship: Cargoship,
   };
-  $: console.log(boat);
+
   if (boat) {
     if (boat?.split("#")[1]) {
       [lighter, lightest] = shipColors["#" + boat?.split("#")[1]];
@@ -24,8 +24,7 @@
       type = boat?.split("#")[0];
     }
   }
-  $: console.log(lighter, type);
   const Boat = boats[type];
 </script>
 
-<Boat {lightest} {lighter} />
+<Boat on:click {lightest} {lighter} />

@@ -16,22 +16,17 @@
 </script>
 
 {#if !open}
-  <div on:click={() => (open = !open)}>
-    <Ship {boat} />
-  </div>
+  <Ship on:click={() => (open = !open)} {boat} />
 {:else if !selectedType}
   {#each shipTypes as type (type)}
-    <div on:click={() => (selectedType = type)}>
-      {type}
-      <Ship {type} />
-    </div>
+    <Ship on:click={() => (selectedType = type)} {type} />
   {/each}
 {:else}
   {#each Object.entries(shipColors) as [theme, [lightest, lighter]] (theme)}
-    <div on:click={() => handleSelect(selectedType + theme)}>
-      {selectedType}
-      {theme}
-      <Ship type={selectedType} {lightest} {lighter} />
-    </div>
+    <Ship
+      on:click={() => handleSelect(selectedType + theme)}
+      type={selectedType}
+      {lightest}
+      {lighter} />
   {/each}
 {/if}

@@ -5,6 +5,7 @@
 </script>
 
 <svg
+  on:click
   enable-background="new 0 0 512.003 512.003"
   height="100%"
   viewBox="0 0 512.003 512.003"

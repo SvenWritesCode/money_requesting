@@ -2,7 +2,9 @@
   export let lightest = "#fed534"
   export let lighter = "#e99200"
 </script>
-<svg id="Capa_1" enable-background="new 0 0 512.003 512.003" height="100%" viewBox="0 0 512.003 512.003" width="100%"
+<svg 
+  on:click
+id="Capa_1" enable-background="new 0 0 512.003 512.003" height="100%" viewBox="0 0 512.003 512.003" width="100%"
   xmlns="http://www.w3.org/2000/svg">
   <g>
     <g>
