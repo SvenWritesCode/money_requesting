@@ -1,5 +1,5 @@
 <script>
-  import { voyage, selected, undo } from "./stores.js";
+  import { voyage, selected, undo } from "./store";
   import { Collection, User } from "sveltefire";
   import Avatar from "./Avatar.svelte";
   const handleRemove = (crewmate, ref) => {

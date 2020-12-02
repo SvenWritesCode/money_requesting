@@ -1,10 +1,10 @@
-<script>
-  import { firebase } from "./firebase.js";
-  import { voyage, selected, undo } from "./stores.js";
+<!-- <script>
+  import { firebase } from "../firebase.js";
+  import { voyage, selected, undo } from "../store";
   import { Doc, Collection } from "sveltefire";
   import Provision from "./Provision.svelte";
   import ProvisionInput from "./ProvisionInput.svelte";
-  import Fees from "./Fees.svelte";
+  import Fees from "../Fees.svelte";
 
   const handleSelect = ({ id }, provisionRef, remove) => {
     if (!$selected?.name) return;
@@ -71,4 +71,4 @@
       Total ${sumProvisions(provisionsData) + parseInt(voyageData.tip) + parseInt(voyageData.tax) + parseInt(voyageData.fees)}
     </div>
   </Collection>
-</Doc>
+</Doc> -->

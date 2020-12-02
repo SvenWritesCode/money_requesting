@@ -1,6 +1,6 @@
 <script>
-  import Avatar from "./Avatar.svelte";
-  import { selected } from "./stores.js";
+  import Avatar from "../Avatar.svelte";
+  import { selected } from "../store";
   import { createEventDispatcher } from "svelte";
   export let provision;
 

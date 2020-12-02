@@ -2,7 +2,7 @@
   import { shipPaletteThemes, shipTypes } from "./ships.js";
   import { createEventDispatcher } from "svelte";
   import Ship from "./Ship.svelte";
-  import { announce, currentShipType } from "../stores.js";
+  import { announce } from "../store"
 
   const dispatch = createEventDispatcher();
 

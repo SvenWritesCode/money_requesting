@@ -20,7 +20,7 @@ export { firebase };
 export const db = firebase.firestore();
 export const auth = firebase.auth();
 
-import { voyage } from "./stores";
+import { voyage } from "./store";
 const queryId = window.location.search.split("i=")?.[1];
 let voyageRef;
 if (queryId) {

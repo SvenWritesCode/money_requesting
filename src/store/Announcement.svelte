@@ -1,5 +1,5 @@
 <script>
-  import { announce } from "./stores.js";
+  import { announce } from "../store";
 </script>
 
 <!-- This example requires Tailwind CSS v2.0+ -->

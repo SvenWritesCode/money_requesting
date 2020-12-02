@@ -1,9 +1,9 @@
 <script>
-  import ShipSelect from "./ships/ShipSelect.svelte";
-  import { voyage, announce } from "./stores.js";
+  import ShipSelect from "../Ship/ShipSelect.svelte";
+  import { voyage, announce } from "../store";
   import { User, Doc } from "sveltefire";
   import Tag from "./Tag.svelte";
-  import Ship from "./ships/Ship.svelte";
+  import Ship from "../Ship/Ship.svelte";
   import Venmo from "./Venmo.svelte";
 
   let focused;

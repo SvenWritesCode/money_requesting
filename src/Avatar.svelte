@@ -1,5 +1,5 @@
 <script>
-  import Ship from "./ships/Ship.svelte";
+  import Ship from "./ship/Ship.svelte";
   import { createEventDispatcher } from "svelte";
   export let selected = false;
   export let isRemovable = true;

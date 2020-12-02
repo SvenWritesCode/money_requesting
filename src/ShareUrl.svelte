@@ -1,5 +1,5 @@
 <script>
-  import { voyage } from "./stores";
+  import { voyage } from "./store";
   import { slide } from "svelte/transition";
   import copy from "copy-text-to-clipboard";
 

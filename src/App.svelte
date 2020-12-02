@@ -3,10 +3,10 @@
   import { firebase } from "./firebase";
   import ShareUrl from "./ShareUrl.svelte";
   import AvatarSelect from "./AvatarSelect.svelte";
-  import Profile from "./Profile.svelte";
-  import Provisions from "./Provisions.svelte";
-  import Undo from "./Undo.svelte";
-  import Announcement from "./Announcement.svelte";
+  import Profile from "./profile/Profile.svelte";
+  import Provisions from "./provision/Provisions.svelte";
+  import Undo from "./store/Undo.svelte";
+  import Announcement from "./store/Announcement.svelte";
 </script>
 
 <svelte:head>

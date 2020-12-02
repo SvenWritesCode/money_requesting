@@ -1,6 +1,6 @@
 <script>
   import { Doc } from "sveltefire";
-  import { voyage } from "./stores.js";
+  import { voyage } from "./store";
 </script>
 
 <Doc path={$voyage} let:data let:ref>

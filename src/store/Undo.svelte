@@ -1,5 +1,5 @@
 <script>
-  import { undo } from "./stores.js";
+  import { undo } from "../store";
   import { fade } from "svelte/transition";
 </script>
 
