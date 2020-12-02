@@ -1,21 +1,17 @@
 <script>
-  import { voyage } from "./stores.js";
+  import ShipSelect from "./ships/ShipSelect.svelte";
+  import { voyage, announce } from "./stores.js";
   import { User, Doc } from "sveltefire";
-  import Tag from "./svg/Tag.svelte";
-  import Ship from "./svg/Ship.svelte";
-  import Venmo from "./svg/Venmo.svelte";
+  import Tag from "./Tag.svelte";
+  import Ship from "./ships/Ship.svelte";
+  import Venmo from "./Venmo.svelte";
 
-  const handleSelect = (boat, ref, user) => {
-    $voyage
-      .collection(`crewmate`)
-      .doc(user.uid)
-      .update({ boat }, { merge: true });
-    ref.update({ boat }, { merge: true });
-  };
+  let focused;
 </script>
 
 <style>
   .name {
+    background-color: #fecc96;
     width: 87%;
     position: absolute;
     left: 6%;
@@ -35,35 +31,75 @@
     text-align: left;
     outline: none;
   }
+  .venmo {
+    color: #3d95ce;
+    font-size: 20px;
+    line-height: 23px;
+  }
+  .focused {
+    transform: translateY(-5px);
+  }
 </style>
 
 <User let:user>
   <div class="flex">
     <Doc path={`/mariner/${user.uid}`} let:data let:ref>
-      <div class="relative h-64">
-        <Tag text="">
-          <Ship boat={data.boat} />
-        </Tag>
-        <span class="name outline-none" contenteditable>Kyle Trusler</span>
-        <div class="providers">
-          <div>
-            <span class="absolute -left-4">@</span>
-            <input
-              class="provider appearance-none text-sm"
-              value={data?.venmo || 'venmo'}
-              on:change={({ target: { value } }) => {
-                $voyage
-                  .collection('crewmate')
-                  .doc(user.uid)
-                  .update({ venmo: value });
-                ref.update({ venmo: value });
-              }} />
-          </div>
-          <div class="w-full">
-            <Venmo />
+      {#if data.theme}
+        <div class="relative h-64">
+          <Tag>
+            <Ship
+              on:click={() => {
+                $announce = { component: ShipSelect, onSelect: ({ detail: { shipType, theme } }) => {
+                    ref.update({ shipType, theme });
+                    $voyage
+                      .collection('crewmate')
+                      .doc(user.uid)
+                      .update({ shipType, theme });
+                  } };
+              }}
+              theme={data.theme}
+              shipType={data.shipType} />
+          </Tag>
+          <input
+            autocorrect="off"
+            autocomplete="off"
+            class="name outline-none"
+            value={data.name}
+            on:change={({ target: { value } }) => {
+              $voyage
+                .collection('crewmate')
+                .doc(user.uid)
+                .update({ name: value });
+              ref.update({ name: value });
+            }} />
+          <div class="providers">
+            <div>
+              <span class="absolute venmo -left-4">@</span>
+              <input
+                on:focus={() => {
+                  focused = true;
+                }}
+                on:blur={() => {
+                  focused = false;
+                }}
+                autocorrect="off"
+                autocomplete="off"
+                class="provider appearance-none text-sm"
+                placeholder={data?.venmo}
+                on:change={({ target: { value } }) => {
+                  $voyage
+                    .collection('crewmate')
+                    .doc(user.uid)
+                    .update({ venmo: value });
+                  ref.update({ venmo: value });
+                }} />
+            </div>
+            <div class:focused class="transition-all w-full">
+              <Venmo />
+            </div>
           </div>
         </div>
-      </div>
+      {/if}
     </Doc>
   </div>
 </User>

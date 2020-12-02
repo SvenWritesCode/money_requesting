@@ -60,9 +60,6 @@
     </div>
     <div>
       <ProvisionInput {ref} />
-      <div>
-        <Fees />
-      </div>
     </div>
     <div>
       People

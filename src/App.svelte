@@ -6,8 +6,17 @@
   import Profile from "./Profile.svelte";
   import Provisions from "./Provisions.svelte";
   import Undo from "./Undo.svelte";
+  import Announcement from "./Announcement.svelte";
 </script>
 
+<svelte:head>
+  <style>
+    @import url("https://use.typekit.net/zkf6wmv.css");
+    * {
+      font-family: "chippewa-falls";
+    }
+  </style>
+</svelte:head>
 <FirebaseApp {firebase}>
   <div class="container mx-auto px-4 sm:px-6 lg:px-8">
     <AvatarSelect />
@@ -15,7 +24,8 @@
     <div>
       <Provisions />
     </div>
-    <Undo />
     <Profile />
   </div>
+  <Undo />
+  <Announcement />
 </FirebaseApp>

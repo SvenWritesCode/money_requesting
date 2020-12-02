@@ -88,8 +88,8 @@
   <div class="absolute w-32 h-32 flex flex-col justify-between text-center">
     <div class="flex h-4 px-5 py-3">
       {#if crewmate}
-        {#each crewmate as name}
-          <Avatar crewmate={{ name }} />
+        {#each crewmate as crew}
+          <Avatar crewmate={crew} />
         {/each}
       {/if}
     </div>
